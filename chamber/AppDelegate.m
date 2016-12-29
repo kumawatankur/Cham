@@ -8,16 +8,110 @@
 
 #import "AppDelegate.h"
 
+
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
-
+//- (void) applicationDidFinishLaunching:(UIApplication*)application
+//{
+//    [NSThread sleepForTimeInterval:9.0];
+//}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
+    {
+        // iOS 8 Notifications
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        
+        [application registerForRemoteNotifications];
+    }
+    else
+    {
+        // iOS < 8 Notifications
+        [application registerForRemoteNotificationTypes:
+         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
+    }
+    
+
     // Override point for customization after application launch.
-    return YES;
+      [NSThread sleepForTimeInterval:0.2];
+    [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentProduction : @"ASeaDfLG0gS4dUn60un16TSabvm-fT1_xgXyhfEvV6IB_JWNiK2dRslYS_r6fvZ4HX9Rp2AuXjuVK9c5",
+                                                           PayPalEnvironmentSandbox : @" ankur.sixthsense-facilitator@gmail.com	"}];
+    
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"background2.png"] forBarMetrics:UIBarMetricsDefault];
+    // sleep(5.0);
+    
+       return YES;
+}
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"Did Register for Remote Notifications with Device Token (%@)", deviceToken);
+    
+    NSString *device = [deviceToken description];
+    device = [device stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    device = [device stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    NSLog(@"My device is: %@", device);
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://hispanicchamberfw.com/ws/deviceid_insert_ios.php"]];
+    
+    
+    //create the Method "GET" or "POST"
+    [request setHTTPMethod:@"POST"];
+    
+    //Pass The String to server(YOU SHOULD GIVE YOUR PARAMETERS INSTEAD OF MY PARAMETERS)
+    NSString *userUpdate =[NSString stringWithFormat:@"device_id=%@&",device, nil];
+    
+    
+    
+    //Check The Value what we passed
+    NSLog(@"the data Details is =%@", userUpdate);
+    
+    //Convert the String to Data
+    NSData *data1 = [userUpdate dataUsingEncoding:NSUTF8StringEncoding];
+    
+    //Apply the data to the body
+    [request setHTTPBody:data1];
+    
+    //Create the response and Error
+    NSError *err;
+    NSURLResponse *response;
+    
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
+    
+    NSString *resSrt = [[NSString alloc]initWithData:responseData encoding:NSASCIIStringEncoding];
+    
+    //This is for Response
+    NSLog(@"got response==%@", resSrt);
+    if(resSrt)
+    {
+        NSLog(@"got response");
+        
+    }
+    else
+    {
+        NSLog(@"faield to connect");
+    }
+    
+
+
+//    [[NSUserDefaults standardUserDefaults] setObject:device forKey:@"MyAppDeviceToken"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"Did Fail to Register for Remote Notifications");
+    NSLog(@"%@, %@", error, error.localizedDescription);
+    
+}
+
+
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    for (id key in userInfo) {
+        NSLog(@"key: %@, value: %@", key, [userInfo objectForKey:key ]);
+        
+    }
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
