@@ -82,7 +82,7 @@
     self.pickerarray= @[@"Activite Business",@"Corporate I: 50 or more employees",@"Associate",@"Active Professional",@"Corporate II: fewer than 50 employees",];
     self.anualarray= @[@"Associate $30.00",@"Actve Professional $50.00",@"Active Business $70.00",@"Corporate II: fewer than 50 employees $100",@"Corporate I: 50 or more employees $ 250.00",];
     self.paymentarray= @[@"Pay by check",@"Online",];
-    self.closelyarray= @[@"Accounting",@"Advertising/Marketing",@"Architecs",@"Attorney/Law Firms/LegalResources",@"Automotive",@"Auto Mfg",@"Banks/Credit Unions/Landers",@"Business consulting",@"Cleaning Services",@"Communication Mgmt",@"computer/Technology service",@"Consultant",@"Contractors",@"Education",@"Employee Benefits",@"Engineering",@"Financial Services",@"Food Mfg/Dist.",@"General Members",@"Goverment",@"Grocery/Supermarkets",@"Healthcare",@"Human Resources",@"Import/Export",@"Industrial Supplies/Equipment",@"Insurance",@"Invetigations",@"Manufacturing",@"Media",@"Non-for-profit",@"Personal Care",@"Real State",@"Cell Repair/Wireless",@"Radio",@"Restaurants",@"Retail",];
+    self.closelyarray= @[@"Accounting",@"Advertising/Marketing",@"Architecs",@"Attorney/Law Firms/LegalResources",@"Automotive",@"Auto Mfg",@"Banks/Credit Unions/Landers",@"Business consulting",@"Cleaning Services",@"Communication Mgmt",@"Computer/Technology service",@"Consultant",@"Contractors",@"Education",@"Employee Benefits",@"Engineering",@"Financial Services",@"Food Mfg/Dist.",@"General Members",@"Goverment",@"Grocery/Supermarkets",@"Healthcare",@"Human Resources",@"Import/Export",@"Industrial Supplies/Equipment",@"Insurance",@"Invetigations",@"Manufacturing",@"Media",@"Non-for-profit",@"Personal Care",@"Real State",@"Cell Repair/Wireless",@"Radio",@"Restaurants",@"Retail",];
     
     
     
@@ -257,59 +257,90 @@
     
     NSPredicate *emailTest =[NSPredicate predicateWithFormat:@"SELF MATCHES %@",emailRegEx];
     
-    if ([_txpicker.text isEqualToString:@"Active Business"] || [_txpicker.text isEqualToString:@"Corporate I: 50 or more employees"] || [_txpicker.text isEqualToString:@"Corporate II: fewer than 50 employees"]) {
-        [self showErrorMessage:@"Please enter Company Details"];
+    if (([_txpicker.text isEqualToString:@"Active Business"] || [_txpicker.text isEqualToString:@"Corporate I: 50 or more employees"] || [_txpicker.text isEqualToString:@"Corporate II: fewer than 50 employees"] ) && _txcompany_name.text.length==0 )  {
+        [self showErrorMessage:@"Please enter company name"];
         return NO;
     }
-    
-    else if ([_txpicker.text isEqualToString:@"Associate"] || [_txpicker.text isEqualToString:@"Active Professional"])
-        
-    {
-        [self showErrorMessage:@"Please enter Individual member details"];
+   else if (([_txpicker.text isEqualToString:@"Active Business"] || [_txpicker.text isEqualToString:@"Corporate I: 50 or more employees"] || [_txpicker.text isEqualToString:@"Corporate II: fewer than 50 employees"] ) && _txattn.text.length==0 ) {
+        [self showErrorMessage:@"Please enter ATTN"];
         return NO;
     }
-    
 
-//       else if (_tx_membe_name.text && _tx_membe_name.text.length==0)
-//    {
-//        [self showErrorMessage:@"Please enter member name"];
-//        return NO;
-//    }
-//    else if (_tx_member_address.text && _tx_member_address.text.length==0)
-//    {
-//        [self showErrorMessage:@"Please enter member address"];
-//        return NO;
-//    }
-//    else if (_tx_member_city.text && _tx_member_city.text.length==0)
-//    {
-//        [self showErrorMessage:@"Please enter member city"];
-//        return NO;
-//    }
-//    else if (_tx_member_state.text && _tx_member_state.text.length==0)
-//    {
-//        [self showErrorMessage:@"Please enter member state"];
-//        return NO;
-//    }
-//    else if (_tx_member_zip.text && _tx_member_zip.text.length==0)
-//    {
-//        [self showErrorMessage:@"Please enter member zip"];
-//        return NO;
-//    }
-//    else if (_tx_member_homephone.text && _tx_member_homephone.text.length==0)
-//    {
-//        [self showErrorMessage:@"Please enter member home phone"];
-//        return NO;
-//    }
-//    else if (_tx_member_website.text && _tx_member_website.text.length==0)
-//    {
-//        [self showErrorMessage:@"Please enter member website"];
-//        return NO;
-//    }
-//    else if([emailTest evaluateWithObject: _tx_member_email.text]==NO)
-//    {
-//        [self showErrorMessage:@"Please enter member Valid Email_id"];
-//        return NO;
-//    }
+   else if (([_txpicker.text isEqualToString:@"Active Business"] || [_txpicker.text isEqualToString:@"Corporate I: 50 or more employees"] || [_txpicker.text isEqualToString:@"Corporate II: fewer than 50 employees"] ) && _txaddress.text.length==0 ) {
+       [self showErrorMessage:@"Please enter Address"];
+       return NO;
+   }
+    
+   else if (([_txpicker.text isEqualToString:@"Active Business"] || [_txpicker.text isEqualToString:@"Corporate I: 50 or more employees"] || [_txpicker.text isEqualToString:@"Corporate II: fewer than 50 employees"] ) && _txcity.text.length==0 ) {
+       [self showErrorMessage:@"Please enter City"];
+       return NO;
+   }
+  
+   else if (([_txpicker.text isEqualToString:@"Active Business"] || [_txpicker.text isEqualToString:@"Corporate I: 50 or more employees"] || [_txpicker.text isEqualToString:@"Corporate II: fewer than 50 employees"] ) && _txstate.text.length==0 ) {
+       [self showErrorMessage:@"Please enter state"];
+       return NO;
+   }
+    else if (([_txpicker.text isEqualToString:@"Active Business"] || [_txpicker.text isEqualToString:@"Corporate I: 50 or more employees"] || [_txpicker.text isEqualToString:@"Corporate II: fewer than 50 employees"] ) && _txzip.text.length==0 ) {
+        [self showErrorMessage:@"Please enter Zip"];
+        return NO;
+    }
+    else if (([_txpicker.text isEqualToString:@"Active Business"] || [_txpicker.text isEqualToString:@"Corporate I: 50 or more employees"] || [_txpicker.text isEqualToString:@"Corporate II: fewer than 50 employees"] ) && _txbusiness_phone.text.length==0 ) {
+        [self showErrorMessage:@"Please enter Business phone"];
+        return NO;
+    }
+    else if (([_txpicker.text isEqualToString:@"Active Business"] || [_txpicker.text isEqualToString:@"Corporate I: 50 or more employees"] || [_txpicker.text isEqualToString:@"Corporate II: fewer than 50 employees"] ) && _txwebsite.text.length==0 ) {
+        [self showErrorMessage:@"Please enter Website"];
+        return NO;
+    }
+    else if (([_txpicker.text isEqualToString:@"Active Business"] || [_txpicker.text isEqualToString:@"Corporate I: 50 or more employees"] || [_txpicker.text isEqualToString:@"Corporate II: fewer than 50 employees"] ) && [emailTest evaluateWithObject: _txemail.text]==NO) {
+        [self showErrorMessage:@"Please entervalid E-mail"];
+        return NO;
+    }
+    else if (([_txpicker.text isEqualToString:@"Active Business"] || [_txpicker.text isEqualToString:@"Corporate I: 50 or more employees"] || [_txpicker.text isEqualToString:@"Corporate II: fewer than 50 employees"] ) && _txcontacts.text.length==0 ) {
+        [self showErrorMessage:@"Please enter Contacts"];
+        return NO;
+    }
+    //--------------------------\\
+   
+    else if (([_txpicker.text isEqualToString:@"Associate"] || [_txpicker.text isEqualToString:@"Active Professional"] ) && _tx_membe_name.text.length==0 )     {
+        [self showErrorMessage:@"Please enter member name"];
+        return NO;
+    }
+     else if (([_txpicker.text isEqualToString:@"Associate"] || [_txpicker.text isEqualToString:@"Active Professional"] ) && _tx_member_address.text.length==0 )
+    {
+        [self showErrorMessage:@"Please enter member address"];
+        return NO;
+    }
+     else if (([_txpicker.text isEqualToString:@"Associate"] || [_txpicker.text isEqualToString:@"Active Professional"] ) && _tx_member_city.text.length==0 )    {
+        [self showErrorMessage:@"Please enter member city"];
+        return NO;
+    }
+     else if (([_txpicker.text isEqualToString:@"Associate"] || [_txpicker.text isEqualToString:@"Active Professional"] ) && _tx_member_state.text.length==0 )
+    {
+        [self showErrorMessage:@"Please enter member state"];
+        return NO;
+    }
+     else if (([_txpicker.text isEqualToString:@"Associate"] || [_txpicker.text isEqualToString:@"Active Professional"] ) && _tx_member_zip.text.length==0 )
+    {
+        [self showErrorMessage:@"Please enter member zip"];
+        return NO;
+    }
+     else if (([_txpicker.text isEqualToString:@"Associate"] || [_txpicker.text isEqualToString:@"Active Professional"] ) && _tx_member_homephone.text.length==0 )
+    {
+        [self showErrorMessage:@"Please enter member home phone"];
+        return NO;
+    }
+     else if (([_txpicker.text isEqualToString:@"Associate"] || [_txpicker.text isEqualToString:@"Active Professional"] ) && _tx_member_website.text.length==0 )
+    {
+        [self showErrorMessage:@"Please enter member website"];
+        return NO;
+    }
+    else if (([_txpicker.text isEqualToString:@"Associate"] || [_txpicker.text isEqualToString:@"Active Professional"] ) && [emailTest evaluateWithObject: _tx_member_email.text]==NO)
+    {
+        [self showErrorMessage:@"Please enter member Valid Email_id"];
+        return NO;
+    }
+    //---------------------//
     else if (_tx_place_of_emp.text && _tx_place_of_emp.text.length==0)
     {
         [self showErrorMessage:@"Please enter place of employment"];
@@ -335,16 +366,16 @@
         [self showErrorMessage:@"Please enter recive information Valid Email_id"];
         return NO;
     }
-    else if (_tx_receive_info_fax.text && _tx_receive_info_fax.text.length==0)
-    {
-        [self showErrorMessage:@"Please enter recive information fax "];
-        return NO;
-    }
-    else if([emailTest evaluateWithObject: _tx_receive_info_usemail.text]==NO)
-    {
-        [self showErrorMessage:@"Please enter valid recive information U.S.email"];
-        return NO;
-    }
+//    else if (_tx_receive_info_fax.text && _tx_receive_info_fax.text.length==0)
+//    {
+//        [self showErrorMessage:@"Please enter recive information fax "];
+//        return NO;
+//    }
+//    else if([emailTest evaluateWithObject: _tx_receive_info_usemail.text]==NO)
+//    {
+//        [self showErrorMessage:@"Please enter valid recive information U.S.email"];
+//        return NO;
+//    }
     else if (_tx_receive_info_chech_enclosed.text && _tx_receive_info_chech_enclosed.text.length==0)
     {
         [self showErrorMessage:@"Please enter check enclosed for $ "];
