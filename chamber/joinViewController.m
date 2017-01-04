@@ -11,6 +11,7 @@
 #import "IQDropDownTextField.h"
 #import "IQUIView+IQKeyboardToolbar.h"
 #import "IQUITextFieldView+Additions.h"
+#import "Home.h"
 
 
 @interface joinViewController ()<UIAlertViewDelegate>
@@ -247,6 +248,9 @@
         
         [signupalert show];
        }
+    Home *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+                     instantiateViewControllerWithIdentifier:@"WebServiceViewController"];
+    [self.navigationController pushViewController:wc animated:YES];
 }
 
 
@@ -293,7 +297,7 @@
         return NO;
     }
     else if (([_txpicker.text isEqualToString:@"Active Business"] || [_txpicker.text isEqualToString:@"Corporate I: 50 or more employees"] || [_txpicker.text isEqualToString:@"Corporate II: fewer than 50 employees"] ) && [emailTest evaluateWithObject: _txemail.text]==NO) {
-        [self showErrorMessage:@"Please entervalid E-mail"];
+        [self showErrorMessage:@"Please enter valid E-mail"];
         return NO;
     }
     else if (([_txpicker.text isEqualToString:@"Active Business"] || [_txpicker.text isEqualToString:@"Corporate I: 50 or more employees"] || [_txpicker.text isEqualToString:@"Corporate II: fewer than 50 employees"] ) && _txcontacts.text.length==0 ) {
@@ -340,27 +344,29 @@
         [self showErrorMessage:@"Please enter member Valid Email_id"];
         return NO;
     }
-    //---------------------//
-    else if (_tx_place_of_emp.text && _tx_place_of_emp.text.length==0)
+   
+    else if (([_txpicker.text isEqualToString:@"Associate"] || [_txpicker.text isEqualToString:@"Active Professional"] ) && _tx_place_of_emp.text.length==0)
     {
         [self showErrorMessage:@"Please enter place of employment"];
         return NO;
     }
-    else if (_tx_placeofemp_city.text && _tx_placeofemp_city.text.length==0)
+    else if (([_txpicker.text isEqualToString:@"Associate"] || [_txpicker.text isEqualToString:@"Active Professional"] ) && _tx_placeofemp_city.text.length==0)
     {
         [self showErrorMessage:@"Please enter enter place of employment city"];
         return NO;
     }
-    else if (_tx_placeofemp_state.text && _tx_placeofemp_state.text.length==0)
+    else if (([_txpicker.text isEqualToString:@"Associate"] || [_txpicker.text isEqualToString:@"Active Professional"] ) && _tx_placeofemp_state.text.length==0)
     {
         [self showErrorMessage:@"Please enter enter place of employment state"];
         return NO;
     }
-    else if (_tx_placeofemp_zip.text && _tx_placeofemp_zip.text.length==0)
+    else if (([_txpicker.text isEqualToString:@"Associate"] || [_txpicker.text isEqualToString:@"Active Professional"] ) && _tx_placeofemp_zip.text.length==0)
     {
         [self showErrorMessage:@"Please enter enter place of employment zip"];
         return NO;
     }
+    //---------------------//
+    
     else if([emailTest evaluateWithObject: _tx_receive_info_email.text]==NO)
     {
         [self showErrorMessage:@"Please enter recive information Valid Email_id"];
@@ -381,7 +387,7 @@
         [self showErrorMessage:@"Please enter check enclosed for $ "];
         return NO;
     }
-    else if([emailTest evaluateWithObject: _tx_describe_bsn.text]==NO)
+    else if (_tx_describe_bsn.text && _tx_describe_bsn.text.length==0)
     {
         [self showErrorMessage:@"Please enter briefly describe your business "];
         return NO;
